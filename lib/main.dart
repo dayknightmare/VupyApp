@@ -15,23 +15,22 @@ class VupyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Vupy',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Color(0xffe7002a),
-          primarySwatch: Colors.red
-        ),
-        home: StartPage(),
-        navigatorKey: navigatorKey,
-        onGenerateRoute: routes,
-      );
+      title: 'Vupy',
+      debugShowCheckedModeBanner: false,
+      theme:
+          ThemeData(primaryColor: Color(0xffe7002a), primarySwatch: Colors.red),
+      home: StartPage(),
+      navigatorKey: navigatorKey,
+      onGenerateRoute: routes,
+    );
   }
 }
 
 Route routes(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return PageTransition(child: StartPage(), type: PageTransitionType.upToDown);
+      return PageTransition(
+          child: StartPage(), type: PageTransitionType.upToDown);
 
     case '/vupy':
       return PageTransition(
@@ -53,6 +52,8 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mainctrl.setSize(
+        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -77,22 +78,15 @@ class StartPage extends StatelessWidget {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 200,
-                width: MediaQuery.of(context).size.width,
-                child: Observer(
-                  builder: (_) {
-                    return PageView(
-                      controller: _pageCon,
-                      onPageChanged: (int index) {
-                        mainctrl.changeIndexBottom(index);
-                        pageAnimation(index);
-                      },
-                      children: <Widget>[
-                        LoginPage(),
-                        SignupPage()
-                      ],
-                    );
+                height: mainctrl.height - 200,
+                width: mainctrl.width,
+                child: PageView(
+                  controller: _pageCon,
+                  onPageChanged: (int index) {
+                    mainctrl.changeIndexBottom(index);
+                    pageAnimation(index);
                   },
+                  children: <Widget>[LoginPage(), SignupPage()],
                 ),
               )
             ],

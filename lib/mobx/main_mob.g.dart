@@ -26,6 +26,40 @@ mixin _$MainControl on _MainControl, Store {
     }, _$indexbottomAtom, name: '${_$indexbottomAtom.name}_set');
   }
 
+  final _$heightAtom = Atom(name: '_MainControl.height');
+
+  @override
+  double get height {
+    _$heightAtom.context.enforceReadPolicy(_$heightAtom);
+    _$heightAtom.reportObserved();
+    return super.height;
+  }
+
+  @override
+  set height(double value) {
+    _$heightAtom.context.conditionallyRunInAction(() {
+      super.height = value;
+      _$heightAtom.reportChanged();
+    }, _$heightAtom, name: '${_$heightAtom.name}_set');
+  }
+
+  final _$widthAtom = Atom(name: '_MainControl.width');
+
+  @override
+  double get width {
+    _$widthAtom.context.enforceReadPolicy(_$widthAtom);
+    _$widthAtom.reportObserved();
+    return super.width;
+  }
+
+  @override
+  set width(double value) {
+    _$widthAtom.context.conditionallyRunInAction(() {
+      super.width = value;
+      _$widthAtom.reportChanged();
+    }, _$widthAtom, name: '${_$widthAtom.name}_set');
+  }
+
   final _$_MainControlActionController = ActionController(name: '_MainControl');
 
   @override
@@ -33,6 +67,16 @@ mixin _$MainControl on _MainControl, Store {
     final _$actionInfo = _$_MainControlActionController.startAction();
     try {
       return super.changeIndexBottom(index);
+    } finally {
+      _$_MainControlActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSize(double w, double h) {
+    final _$actionInfo = _$_MainControlActionController.startAction();
+    try {
+      return super.setSize(w, h);
     } finally {
       _$_MainControlActionController.endAction(_$actionInfo);
     }

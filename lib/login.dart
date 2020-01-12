@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vupyapp/widgets/urls.dart';
+import 'mobx/login_mob.dart';
 
-class LoginPage extends StatelessWidget {
-  final userctrl = TextEditingController();
-  final passwordctrl = TextEditingController();
+final loginctrl = LoginControl();
+
+class LoginPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           TextField(
-            controller: userctrl,
+            controller: loginctrl.userctrl,
             decoration: InputDecoration(
                 labelText: "Usuário",
                 focusedBorder: OutlineInputBorder(
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
             color: Color(0x01000001),
           ),
           TextField(
-            controller: passwordctrl,
+            controller: loginctrl.passwordctrl,
             obscureText: true,
             decoration: InputDecoration(
                 labelText: "Senha",
@@ -47,8 +48,8 @@ class LoginPage extends StatelessWidget {
             onPressed: () async {
               var prefs = await SharedPreferences.getInstance();
               var data = {
-                "user": userctrl.text,
-                "password": passwordctrl.text,
+                "user": loginctrl.userctrl.text,
+                "password": loginctrl.passwordctrl.text,
               };
 
               var r = await http.post(
@@ -66,16 +67,17 @@ class LoginPage extends StatelessWidget {
                     );
                   }
                 );
-                return;
               }
 
-              var response = jsonDecode(r.body);
+              else{
 
-              prefs.setString("user", response['user']);
-              prefs.setString("api", response['api']);
+                var response = jsonDecode(r.body);
 
-              Navigator.pushReplacementNamed(context, "/vupy");
+                prefs.setString("user", response['user']);
+                prefs.setString("api", response['api']);
 
+                Navigator.pushReplacementNamed(context, "/vupy");
+              }
             },
             child: Text(
               "Fazer login",
