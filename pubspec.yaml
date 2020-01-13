@@ -13,6 +13,7 @@ dependencies:
   bubble_bottom_bar: ^1.2.0
   mobx: ^0.4.0+1
   flutter_mobx: ^0.3.3
+  email_validator: '^1.0.0'
   flutter:
     sdk: flutter
 

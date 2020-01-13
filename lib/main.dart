@@ -55,44 +55,48 @@ class StartPage extends StatelessWidget {
     mainctrl.setSize(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Image.asset(
-                        "assets/vupylogo.png",
-                        height: 100,
-                      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Image.asset(
+                      "assets/vupylogo.png",
+                      height: 100,
                     ),
-                    Text(
-                      "Bem-vindo a Vupy",
-                      style: TextStyle(color: Colors.black, fontSize: 25),
-                    )
-                  ],
-                ),
+                  ),
+                  Text(
+                    "Bem-vindo a Vupy",
+                    style: TextStyle(color: Colors.black, fontSize: 25),
+                  )
+                ],
               ),
-              Container(
-                height: mainctrl.height - 200,
-                width: mainctrl.width,
-                child: PageView(
-                  controller: _pageCon,
-                  onPageChanged: (int index) {
-                    mainctrl.changeIndexBottom(index);
-                    pageAnimation(index);
-                  },
-                  children: <Widget>[LoginPage(), SignupPage()],
-                ),
-              )
-            ],
-          ),
+            ),
+            Container(
+              height: mainctrl.height - 200,
+              width: mainctrl.width,
+              child: PageView(
+                controller: _pageCon,
+                onPageChanged: (int index) {
+                  mainctrl.changeIndexBottom(index);
+                  pageAnimation(index);
+                },
+                children: <Widget>[
+                  LoginPage(),
+                  SignupPage(),
+                ],
+              ),
+            )
+          ],
         ),
-        bottomNavigationBar: Observer(builder: (_) {
+      ),
+      bottomNavigationBar: Observer(
+        builder: (_) {
           return BubbleBottomBar(
             opacity: .3,
             inkColor: Color(0x56F20024),
@@ -134,6 +138,8 @@ class StartPage extends StatelessWidget {
               ),
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 }
