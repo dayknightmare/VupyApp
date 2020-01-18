@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:vupyapp/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vupyapp/login.dart';
 import 'package:vupyapp/signup.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:vupyapp/vupy.dart';
 import 'mobx/main_mob.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -17,8 +18,11 @@ class VupyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Vupy',
       debugShowCheckedModeBanner: false,
-      theme:
-          ThemeData(primaryColor: Color(0xffe7002a), primarySwatch: Colors.red),
+      theme: ThemeData(
+        primaryColor: Color(0xffe7002a),
+        primarySwatch: Colors.red,
+        fontFamily: 'Mont',
+      ),
       home: StartPage(),
       navigatorKey: navigatorKey,
       onGenerateRoute: routes,
@@ -34,7 +38,7 @@ Route routes(RouteSettings settings) {
 
     case '/vupy':
       return PageTransition(
-          child: Homepage(), type: PageTransitionType.downToUp);
+          child: VupyHome(), type: PageTransitionType.downToUp);
 
     default:
       return null;
@@ -45,15 +49,28 @@ class StartPage extends StatelessWidget {
   final mainctrl = MainControl();
   final PageController _pageCon = PageController();
 
-  pageAnimation(int index) {
+  void pageAnimation(int index) {
     _pageCon.animateToPage(index,
         duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+  }
+
+  void checkLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int user = prefs.getInt("user" ?? null);
+    String api = prefs.getString("api" ?? null);
+
+    if (user != null && api != null) {
+      navigatorKey.currentState.pushReplacementNamed("/vupy");
+    } else {
+      prefs.clear();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     mainctrl.setSize(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+    checkLogin();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -78,7 +95,7 @@ class StartPage extends StatelessWidget {
               ),
             ),
             Container(
-              height: mainctrl.height - 200,
+              height: mainctrl.height - 250,
               width: mainctrl.width,
               child: PageView(
                 controller: _pageCon,

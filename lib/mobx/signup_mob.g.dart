@@ -94,6 +94,23 @@ mixin _$SignupControl on _SignupControl, Store {
     }, _$emailctrlAtom, name: '${_$emailctrlAtom.name}_set');
   }
 
+  final _$formAtom = Atom(name: '_SignupControl.form');
+
+  @override
+  bool get form {
+    _$formAtom.context.enforceReadPolicy(_$formAtom);
+    _$formAtom.reportObserved();
+    return super.form;
+  }
+
+  @override
+  set form(bool value) {
+    _$formAtom.context.conditionallyRunInAction(() {
+      super.form = value;
+      _$formAtom.reportChanged();
+    }, _$formAtom, name: '${_$formAtom.name}_set');
+  }
+
   final _$_SignupControlActionController =
       ActionController(name: '_SignupControl');
 
@@ -102,6 +119,16 @@ mixin _$SignupControl on _SignupControl, Store {
     final _$actionInfo = _$_SignupControlActionController.startAction();
     try {
       return super.resetform();
+    } finally {
+      _$_SignupControlActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void checkform() {
+    final _$actionInfo = _$_SignupControlActionController.startAction();
+    try {
+      return super.checkform();
     } finally {
       _$_SignupControlActionController.endAction(_$actionInfo);
     }

@@ -37,10 +37,12 @@ flutter:
         fonts:
             - asset: fonts/vupyFont.ttf
               weight: 400
+
+      - family: Mont
+        fonts:
+            - asset: fonts/Montserrat-Regular.ttf
+
+      
       # - family: Emojis
       #   fonts:
       #       - asset: fonts/vupyEmoji.ttf
-      # - family: Poppins
-      #   fonts:
-      #       - asset: fonts/textFont/Poppins-Regular.ttf
-      #       - asset: fonts/textFont/Poppins-Medium.ttf

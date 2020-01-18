@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
             ),
             MaterialButton(
               onPressed: () async {
-                var prefs = await SharedPreferences.getInstance();
+                SharedPreferences prefs = await SharedPreferences.getInstance();
                 var data = {
                   "user": loginctrl.userctrl.text,
                   "password": loginctrl.passwordctrl.text,
@@ -76,7 +76,7 @@ class LoginPage extends StatelessWidget {
 
                 var response = jsonDecode(r.body);
 
-                prefs.setString("user", response['user']);
+                prefs.setInt("user", response['user']);
                 prefs.setString("api", response['api']);
 
                 Navigator.pushReplacementNamed(context, "/vupy");
