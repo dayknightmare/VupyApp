@@ -40,28 +40,6 @@ class VupyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              IconData(0xe9cd, fontFamily: "vupyicons"),
-              color: Colors.redAccent,
-            ),
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.clear();
-              Navigator.popAndPushNamed(context, '/');
-            },
-          )
-        ],
-        title: Text(
-          "data",
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
       body: PageView(
         controller: _pageCon,
         onPageChanged: (int index) => changePage(index),

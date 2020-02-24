@@ -43,6 +43,23 @@ mixin _$HomeControl on _HomeControl, Store {
     }, _$changerAtom, name: '${_$changerAtom.name}_set');
   }
 
+  final _$msgctrlAtom = Atom(name: '_HomeControl.msgctrl');
+
+  @override
+  TextEditingController get msgctrl {
+    _$msgctrlAtom.context.enforceReadPolicy(_$msgctrlAtom);
+    _$msgctrlAtom.reportObserved();
+    return super.msgctrl;
+  }
+
+  @override
+  set msgctrl(TextEditingController value) {
+    _$msgctrlAtom.context.conditionallyRunInAction(() {
+      super.msgctrl = value;
+      _$msgctrlAtom.reportChanged();
+    }, _$msgctrlAtom, name: '${_$msgctrlAtom.name}_set');
+  }
+
   final _$_HomeControlActionController = ActionController(name: '_HomeControl');
 
   @override
@@ -50,6 +67,16 @@ mixin _$HomeControl on _HomeControl, Store {
     final _$actionInfo = _$_HomeControlActionController.startAction();
     try {
       return super.addItem(post);
+    } finally {
+      _$_HomeControlActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void append(List post) {
+    final _$actionInfo = _$_HomeControlActionController.startAction();
+    try {
+      return super.append(post);
     } finally {
       _$_HomeControlActionController.endAction(_$actionInfo);
     }
